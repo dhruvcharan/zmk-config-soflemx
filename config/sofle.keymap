@@ -39,23 +39,14 @@
         };
     };
 
-   // macros {
-    //    m_setup: m_setup {
-     //       compatible = "zmk,behavior-macro";
-      //      #binding-cells = <0>;
-       //     bindings = <&kp S &kp E &kp T &kp U &kp P &kp MINUS &kp D &kp A &kp Y &kp RET>;
-       // };
-       // m_gemini: m_gemini {
-       //     compatible = "zmk,behavior-macro";
-       //     #binding-cells = <0>;
-       //     bindings = <&kp LCTRL &kp G>;
-       // };
-       // m_note: m_note {
-       //     compatible = "zmk,behavior-macro";
-       //     #binding-cells = <0>;
-       //     bindings = <&kp N &kp O &kp T &kp E &kp SPACE &kp DQT &kp DQT &kp LEFT>;
-       // };
-   // };
+    macros {
+        // Universal Lock Screen (Locks both Windows via Win+L and macOS via Ctrl+Cmd+Q)
+        m_lock: m_lock {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LG(L) &kp LG(LC(Q))>;
+        };
+    };
 
     keymap {
         compatible = "zmk,keymap";
@@ -76,10 +67,10 @@
         lower_layer {
             display-name = "lower";
             bindings = <
-&kp C_AC_BACK    &kp EXCL  &kp AT    &kp HASH  &kp DLLR      &kp PRCNT                 &kp CARET &kp AMPS  &kp ASTRK &kp LPAR  &kp RPAR  &kp PG_UP
-&kp GRAVE     &trans    &kp UP    &trans    &kp C_AC_REFRESH &trans                    &kp C_AC_UNDO &kp N7    &kp N8    &kp N9    &kp N0    &kp PG_DN
+&kp LA(LEFT)  &kp EXCL  &kp AT    &kp HASH  &kp DLLR      &kp PRCNT                 &kp CARET &kp AMPS  &kp ASTRK &kp LPAR  &kp RPAR  &kp PG_UP
+&kp GRAVE     &trans    &kp UP    &trans    &kp LC(R)     &trans                    &kp LC(Z) &kp N7    &kp N8    &kp N9    &kp N0    &kp PG_DN
 &kp DEL       &kp LEFT  &kp DOWN  &kp RIGHT &kp LC(F)     &kp LS(LBRC)              &kp LS(RBRC) &kp N4  &kp N5    &kp N6    &kp EQUAL &kp BSLH
-&kp LBKT      &kp C_AC_REFRESH &kp C_AC_CUT &kp C_AC_COPY &kp C_AC_PASTE &kp HOME &trans &trans &kp END &kp N1 &kp N2 &kp N3 &kp MINUS &kp RBKT
+&kp LBKT      &kp LC(Z) &kp LC(X) &kp LC(C) &kp LC(V)     &kp HOME &trans &trans    &kp END   &kp N1    &kp N2    &kp N3    &kp MINUS &kp RBKT
                         &trans    &trans    &trans        &trans        &trans &trans &trans   &trans    &trans    &trans
             >;
 
@@ -89,35 +80,36 @@
         raise_layer {
             display-name = "utility";
 // ------------------------------------------------------------------------------------------------------------
-// |  F12  |  F1 |  F2 |  F3  |  F4  |  F5  |                   |  F6  |  F7   |  F8   |  F9  |  F10  |  F11  |
-// | SPOTLT|  !  |  UP |  #   |  $   |  %   |                   |      |  7    |  8    |  9   |   *   | BKSP  |
-// | SCRSHT| LEFT| DOWN| RIGHT| PGUP |  _   |                   |      |  4    |  5    |  6   |   +   |       |
-// |       | MSTP| MPLY| VOLD | PGDN |  -   |      |  |       |      |  1    |  2    |  3   |   =   |       |
-//               |     |      |      |      |      |  |      |      |  0    |  .    |      |
+// |  F12  |  F1   |  F2  |  F3   |  F4   |  F5  |                   |  F6   |  F7   |  F8   |  F9  |  F10  |  F11  |
+// | RAYCST| ALT+F4|  UP  | TSKMGR| REOPN |   %  |                   | MON_L |  7    |  8    |  9   |   *   | BKSP  |
+// | SNIP  |  LEFT | DOWN | RIGHT | PGUP  |   _  |                   | MON_R |  4    |  5    |  6   |   +   |       |
+// |       |  MSTP | MPLY | VOLD  | PGDN  |   -  |      |  |         | C+BSPC|  1    |  2    |  3   |   =   |       |
+//                 |      |       |       |      |      |  |         |       |  0    |  .    |      |
             bindings = <
-&kp F12        &kp F1    &kp F2    &kp F3    &kp F4    &kp F5                        &kp F6    &kp F7    &kp F8    &kp F9    &kp F10   &kp F11
-&kp LG(SPACE)  &kp EXCL  &kp UP    &kp HASH  &kp DLLR  &kp PRCNT                     &none     &kp N7    &kp N8    &kp N9    &kp ASTRK &kp BSPC
-&kp LG(LS(N4)) &kp LEFT  &kp DOWN  &kp RIGHT &kp PG_UP &kp LS(MINUS)                 &none     &kp N4    &kp N5    &kp N6    &kp PLUS  &none
-&trans         &kp C_STOP &kp C_PP &kp C_VOL_DN &kp PG_DN &kp MINUS  &none &none     &none     &kp N1    &kp N2    &kp N3    &kp EQUAL &none
-                         &trans    &trans    &trans    &trans    &trans       &trans &none     &kp N0    &kp DOT   &trans
+&kp F12        &kp F1     &kp F2    &kp F3         &kp F4        &kp F5                        &kp F6          &kp F7    &kp F8    &kp F9    &kp F10   &kp F11
+&kp LA(SPACE)  &kp LA(F4) &kp UP    &kp LC(LS(ESC))&kp LC(LS(T)) &kp PRCNT                     &kp LG(LS(LEFT))&kp N7    &kp N8    &kp N9    &kp ASTRK &kp BSPC
+&kp LG(LS(S))  &kp LEFT   &kp DOWN  &kp RIGHT      &kp PG_UP     &kp LS(MINUS)                 &kp LG(LS(RIGHT))&kp N4   &kp N5    &kp N6    &kp PLUS  &none
+&trans         &kp C_STOP &kp C_PP  &kp C_VOL_DN   &kp PG_DN     &kp MINUS  &none &none        &kp LC(BSPC)    &kp N1    &kp N2    &kp N3    &kp EQUAL &none
+                          &trans    &trans         &trans        &trans     &trans       &trans &none          &kp N0    &kp DOT   &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            // Left Encoder: Volume | Right Encoder: Switch Windows Virtual Desktops (Ctrl + Win + Right/Left)
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp LC(LG(RIGHT)) LC(LG(LEFT))>;
         };
 
         adjust_layer {
             display-name = "MASTERY";
 // ----------------------------------------------------------------------------------------------------------------------------
 // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       | LOCK | SLEEP |       |
-// | UNLOCK |  SETUP  |  NOTE   |  GEMINI |         |         |                  |      |      |       |      |       |       |
+// | UNLOCK | OUT_TOG | OUT_USB | OUT_BLE |         |         |                  |      |      |       |      |       |       |
 // |        | RGB_HUD | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
 // |        | RGB_BRD | RGB_BRI |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
 //                    |         |         |         |         |         | |      |      |      |       |      |
             bindings = <
-&bt BT_CLR        &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4                            &none &none &none &kp LG(LC(Q)) &kp C_SLEEP &none
-&studio_unlock    &trans &trans         &trans       &none           &none                                   &none &none &none &none &none &none
-&none             &rgb_ug RGB_HUD &rgb_ug RGB_HUI &rgb_ug RGB_SAD &rgb_ug RGB_SAI &rgb_ug RGB_EFF                         &none &none &none &none &none &none
-&none             &rgb_ug RGB_BRD &rgb_ug RGB_BRI &none           &none           &none            &rgb_ug RGB_TOG &none  &none &none &none &none &none &none
+&bt BT_CLR        &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4                            &none &none &none &m_lock     &kp C_SLEEP &none
+&studio_unlock    &out OUT_TOG    &out OUT_USB    &out OUT_BLE    &none           &none                                   &none &none &none &none       &none       &none
+&none             &rgb_ug RGB_HUD &rgb_ug RGB_HUI &rgb_ug RGB_SAD &rgb_ug RGB_SAI &rgb_ug RGB_EFF                         &none &none &none &none       &none       &none
+&none             &rgb_ug RGB_BRD &rgb_ug RGB_BRI &none           &none           &none            &rgb_ug RGB_TOG &none  &none &none &none &none       &none       &none
                                   &none           &none           &none           &trans           &none           &none  &trans &none &none &none
             >;
             
